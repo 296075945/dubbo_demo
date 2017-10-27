@@ -10,7 +10,11 @@ import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.ServiceConfig;
 import com.wy.demo.dubbo.service.HelloService;
 import com.wy.demo.dubbo.service.impl.HelloServiceImpl;
-
+/**
+ * 
+ * @author Administrator
+ *
+ */
 public class Provider2 {
 	public static void main(String[] args) throws IOException {
 		new Thread(new Provider(20880)).start();
@@ -22,6 +26,7 @@ public class Provider2 {
 		public Provider(int port){
 			this.port = port;
 		}
+		@Override
 		public void run() {
 			ApplicationConfig app = new ApplicationConfig("provider");
 			
@@ -31,7 +36,7 @@ public class Provider2 {
 			
 			List<ProtocolConfig> protocols = new ArrayList<ProtocolConfig>(10);
 			protocols.add(new ProtocolConfig("dubbo", port));
-			protocols.add(new ProtocolConfig("injvm"));
+//			protocols.add(new ProtocolConfig("injvm"));
 //			new ProtocolConfig();
 //			protocols.add(new ProtocolConfig("injvm", 20000));
 			
@@ -41,6 +46,7 @@ public class Provider2 {
 			service.setProtocols(protocols);
 			service.setRegistries(registries);
 			service.setApplication(app);
+			service.setCache("lru");
 			service.export();
 			
 			System.out.println("success");

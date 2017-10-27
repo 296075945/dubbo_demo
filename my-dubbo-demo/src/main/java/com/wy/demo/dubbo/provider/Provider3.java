@@ -11,6 +11,11 @@ import com.alibaba.dubbo.config.ServiceConfig;
 import com.wy.demo.dubbo.service.HelloService;
 import com.wy.demo.dubbo.service.impl.HelloServiceImpl;
 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 public class Provider3 {
 	public static void main(String[] args) throws IOException {
 		new Thread(new Provider(20881)).start();
@@ -22,6 +27,7 @@ public class Provider3 {
 		public Provider(int port){
 			this.port = port;
 		}
+		@Override
 		public void run() {
 			ApplicationConfig app = new ApplicationConfig("provider");
 			

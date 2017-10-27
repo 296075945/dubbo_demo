@@ -9,14 +9,17 @@ import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ReferenceConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.wy.demo.dubbo.service.HelloService;
-
+/**
+ * 
+ * @author Administrator
+ *
+ */
 public class Consumer1 {
 	public static void main(String[] args) throws IOException {
 		ApplicationConfig application = new ApplicationConfig("consumer");
 		
 		List<RegistryConfig> registries = new ArrayList<RegistryConfig>(10);
 		registries.add(new RegistryConfig("redis://127.0.0.1:6379"));
-		registries.add(new RegistryConfig("zookeeper://127.0.0.1:2181"));
 		
 		ReferenceConfig<HelloService> reference = new ReferenceConfig<HelloService>();
 		reference.setApplication(application);
@@ -31,7 +34,7 @@ public class Consumer1 {
 		System.out.println(reference.getProtocol());
 		
 		
-		System.out.println(helloService.say("hahah"));
+//		System.out.println(helloService.say("hahah"));
 		
 				
 	}
