@@ -2,7 +2,9 @@ package com.wy.demo.dubbo.provider;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
@@ -47,6 +49,9 @@ public class Provider2 {
 			service.setRegistries(registries);
 			service.setApplication(app);
 			service.setCache("lru");
+			Map<String,String> parameters = new HashMap<>();
+			parameters.put("cache.size", "10");
+			service.setParameters(parameters);
 			service.export();
 			
 			System.out.println("success");

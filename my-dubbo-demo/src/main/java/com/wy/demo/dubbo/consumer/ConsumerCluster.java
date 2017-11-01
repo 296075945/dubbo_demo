@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.dubbo.common.utils.ConcurrentHashSet;
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ReferenceConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
@@ -11,6 +12,7 @@ import com.wy.demo.dubbo.module.User;
 import com.wy.demo.dubbo.service.HelloService;
 
 public class ConsumerCluster {
+	static ConcurrentHashSet<Integer> set = new ConcurrentHashSet<>();
 	public static void main(String[] args) throws IOException {
 		Thread[] threads = new Thread[200];
 		for (int i = 0; i < threads.length; i++) {
@@ -20,6 +22,18 @@ public class ConsumerCluster {
 		for (int i = 0; i < threads.length; i++) {
 			threads[i].start();
 
+		}
+		for (int i = 0; i < threads.length; i++) {
+			try {
+				threads[i].join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		for(int i:set){
+			System.out.println(i);
 		}
 		System.in.read();
 	}
@@ -44,13 +58,14 @@ public class ConsumerCluster {
 			user = new User();
 			user.setName("wy");
 			System.out.println(helloService);
+			
 		}
 
 		@Override
 		public void run() {
 
 			for (int i = 0; i < 100; i++) {
-				System.out.println(helloService.say(user));
+				set.add(helloService.say(user));
 			}
 		}
 

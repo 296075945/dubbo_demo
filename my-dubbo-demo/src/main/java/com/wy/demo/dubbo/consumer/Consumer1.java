@@ -31,7 +31,7 @@ public class Consumer1 {
 //		reference.setScope(Constants.SCOPE_LOCAL);
 		
 		HelloService helloService = reference.get();
-		System.out.println(reference.getProtocol());
+		
 		
 		
 //		System.out.println(helloService.say("hahah"));
